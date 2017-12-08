@@ -8,10 +8,10 @@ socket.on('connect', function (){
   //   text:'what are u doing'
   // });
 
-  socket.emit('createChat',{
-    from:'pranav',
-    text:'gaming'
-  })
+  // socket.emit('createChat',{
+  //   from:'pranav',
+  //   text:'gaming'
+  // })
 });
 
 
@@ -25,5 +25,5 @@ socket.on('disconnect',function(){
 // })
 
 socket.on('newChat',function(chat){
-  console.log('get new chat',chat);
+  console.log('new chat',chat);
 })

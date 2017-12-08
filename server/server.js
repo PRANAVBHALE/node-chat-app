@@ -25,7 +25,7 @@ console.log(publicPath);
 //   // })
 // })
 io.on('connection',(socket)=>{
-  debugger
+//  debugger
   console.log('New user connected');
 
   // socket.emit('newEmail',{
@@ -38,19 +38,29 @@ io.on('connection',(socket)=>{
   //   console.log('create new email',newEmail);
   // })
 
-  socket.emit('newChat',{
-    from:'rohan',
-    text:'wassup',
-    date:new Date()
+  // socket.emit('newChat',{
+  //   from:'rohan',
+  //   text:'wassup',
+  //   date:12211
+  // })
+
+  socket.on('createChat',(chat) =>{
+    console.log('createChat',chat);
+    // io.emit('newChat',{
+    //   from:chat.from,
+    //   text:chat.text,
+    //   createdAt:new Date().getTime()
+    // })
+
+    socket.broadcast.emit('newChat',{
+      from:chat.from,
+      text:chat.text,
+      createdAt:new Date().getTime()
+    })
+
   })
 
-  socket.on('createChat',function (newchat) {
-
-    console.log('new chat added',newchat);
-
-  })
-
-  socket.on('disconnect',(server)=>{
+  socket.on('disconnect',()=>{
     console.log('Connection loged off');
   })
 })
