@@ -25,7 +25,30 @@ console.log(publicPath);
 //   // })
 // })
 io.on('connection',(socket)=>{
+  debugger
   console.log('New user connected');
+
+  // socket.emit('newEmail',{
+  //   from:'pranav25@gmail.com',
+  //   text:'wassup bro',
+  //   date:new Date()
+  // });
+  //
+  // socket.on('createEmail',(newEmail)=>{
+  //   console.log('create new email',newEmail);
+  // })
+
+  socket.emit('newChat',{
+    from:'rohan',
+    text:'wassup',
+    date:new Date()
+  })
+
+  socket.on('createChat',function (newchat) {
+
+    console.log('new chat added',newchat);
+
+  })
 
   socket.on('disconnect',(server)=>{
     console.log('Connection loged off');
