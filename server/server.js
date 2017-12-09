@@ -44,19 +44,30 @@ io.on('connection',(socket)=>{
   //   date:12211
   // })
 
+  socket.emit('newChat',{
+    from:"Admin",
+    text:'Welcome to chat app'
+  })
+
+  socket.broadcast.emit('newChat',{
+    from:"newUser",
+    text:'New User Joined',
+    createdAt:new Date().getTime()
+  })
+
   socket.on('createChat',(chat) =>{
     console.log('createChat',chat);
-    // io.emit('newChat',{
-    //   from:chat.from,
-    //   text:chat.text,
-    //   createdAt:new Date().getTime()
-    // })
-
-    socket.broadcast.emit('newChat',{
+    io.emit('newChat',{
       from:chat.from,
       text:chat.text,
       createdAt:new Date().getTime()
     })
+
+    // socket.broadcast.emit('newChat',{
+    //   from:chat.from,
+    //   text:chat.text,
+    //   createdAt:new Date().getTime()
+    // })
 
   })
 
@@ -65,6 +76,6 @@ io.on('connection',(socket)=>{
   })
 })
 
-server.listen(port,()=>{
+server.listen(port,(server)=>{
   console.log(`server is avaliavle on ${port}`);
 })
