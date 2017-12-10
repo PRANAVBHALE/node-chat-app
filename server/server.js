@@ -50,10 +50,10 @@ io.on('connection',(socket)=>{
 
   socket.broadcast.emit('newChat',generateMessage('Admin','New user joined'))
 
-  socket.on('createChat',(chat) =>{
+  socket.on('createChat',(chat,callback) =>{
     console.log('createChat',chat);
     io.emit('newChat',generateMessage(chat.from,chat.text))
-
+    callback('this is from server')
     // socket.broadcast.emit('newChat',{
     //   from:chat.from,
     //   text:chat.text,

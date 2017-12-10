@@ -26,4 +26,28 @@ socket.on('disconnect',function(){
 
 socket.on('newChat',function(chat){
   console.log('new chat',chat);
+  var li = jQuery('<li></li>')
+  li.text(`${chat.from}: ${chat.text}`)
+
+
+  jQuery('#chats').append(li)
+})
+
+// socket.emit('createChat',{
+//   from:'pranav',
+//   text:'hello'
+// },function (data) {
+//   console.log('Got it',data);
+// })
+
+
+jQuery('#chat-form').on('submit',function(e){
+  e.preventDefault()
+
+  socket.emit('createChat',{
+    from:'User',
+    text:jQuery('[name=chat]').val()
+  },function(){
+
+  })
 })
