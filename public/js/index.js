@@ -27,10 +27,21 @@ socket.on('disconnect',function(){
 socket.on('newChat',function(chat){
   console.log('new chat',chat);
   var li = jQuery('<li></li>')
-  li.text(`${chat.from}: ${chat.text}`)
+  li.text(`${chat.from}:  ${chat.text}`)
 
 
   jQuery('#chats').append(li)
+})
+
+socket.on('newLocationMessage',function(chat){
+    var li = jQuery('<li></li>')
+    var a = jQuery('<a target=_blank>My current location</a>')
+
+    li.text(`${chat.from}: `)
+    a.attr('href',chat.url)
+    li.append(a)
+    jQuery('#chats').append(li)
+
 })
 
 // socket.emit('createChat',{
@@ -49,5 +60,25 @@ jQuery('#chat-form').on('submit',function(e){
     text:jQuery('[name=chat]').val()
   },function(){
 
+  })
+})
+
+var locationButton = jQuery('#send-location')
+locationButton.on('click',function(){
+
+  if(!navigator.geolocation){
+    return alert('Geolocation not supported by browser')
+  }
+
+  navigator.geolocation.getCurrentPosition(function(position){
+  //  console.log(position);
+//  debugger
+  socket.emit('createLocationMessage',{
+    latitude:position.coords.latitude,
+    longitude:position.coords.longitude
+
+  })
+  },function(){
+    alert('unable to fetch location')
   })
 })
