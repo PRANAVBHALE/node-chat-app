@@ -5,22 +5,29 @@
   <head>
 
     <meta charset="utf-8">
-    <title>
-
-    </title>
+    <link rel="stylesheet" href="/css/styles.css">
   </head>
 
-  <body>
-    <p>Welcome to chat  app</p>
+  <body class="chat">
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
+    </div>
 
-    <ol id = "chats"></ol>
+    <div class="chat__main">
+      <ol id = "messages" class = "chat__messages"></ol>
 
-    <form id = 'chat-form'>
-      <input name="chat" type="text" placeholder="Chat"/>
-      <button>send</button>
-    </form>
+      <div class="chat__footer">
+        <form id = 'message-form'>
+          <input name="message" type="text" placeholder="Message"/>
+          <button>send</button>
+        </form>
 
-    <button id="send-location">Send Location</button>
+        <button id="send-location">Send Location</button>
+      </div>
+    </div>
+
+
 
 
     <script src = "/socket.io/socket.io.js"></script>

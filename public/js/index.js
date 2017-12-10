@@ -30,7 +30,7 @@ socket.on('newChat',function(chat){
   li.text(`${chat.from}:  ${chat.text}`)
 
 
-  jQuery('#chats').append(li)
+  jQuery('#messages').append(li)
 })
 
 socket.on('newLocationMessage',function(chat){
@@ -40,7 +40,7 @@ socket.on('newLocationMessage',function(chat){
     li.text(`${chat.from}: `)
     a.attr('href',chat.url)
     li.append(a)
-    jQuery('#chats').append(li)
+    jQuery('#messages').append(li)
 
 })
 
@@ -52,12 +52,12 @@ socket.on('newLocationMessage',function(chat){
 // })
 
 
-jQuery('#chat-form').on('submit',function(e){
+jQuery('#message-form').on('submit',function(e){
   e.preventDefault()
 
   socket.emit('createChat',{
     from:'User',
-    text:jQuery('[name=chat]').val()
+    text:jQuery('[name=message]').val()
   },function(){
 
   })
