@@ -53,7 +53,7 @@ io.on('connection',(socket)=>{
   socket.on('createChat',(chat,callback) =>{
     console.log('createChat',chat);
     io.emit('newChat',generateMessage(chat.from,chat.text))
-    callback('this is from server')
+    callback()
     // socket.broadcast.emit('newChat',{
     //   from:chat.from,
     //   text:chat.text,
