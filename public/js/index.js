@@ -27,22 +27,39 @@ socket.on('disconnect',function(){
 socket.on('newChat',function(chat){
 //  console.log('new chat',chat);
 var formatedTime=moment(chat.createdAt).format('h:mm a')
-  var li = jQuery('<li></li>')
-  li.text(`${chat.from}  ${formatedTime}:  ${chat.text}`)
 
+var template = jQuery('#message-template').html()
 
-  jQuery('#messages').append(li)
+var html = Mustache.render(template,{
+  text:chat.text,
+  from:chat.from,
+  createdAt:formatedTime
+})
+
+ jQuery('#messages').append(html)
+
+//   var li = jQuery('<li></li>')
+//   li.text(`${chat.from}  ${formatedTime}:  ${chat.text}`)
+//
+//
+//   jQuery('#messages').append(li)
 })
 
 socket.on('newLocationMessage',function(chat){
   var formatedTime=moment(chat.createdAt).format('h:mm a')
-    var li = jQuery('<li></li>')
-    var a = jQuery('<a target=_blank>My current location</a>')
+    // var li = jQuery('<li></li>')
+    // var a = jQuery('<a target=_blank>My current location</a>')
+    var template=jQuery('#location-message-template').html()
 
-    li.text(`${chat.from}  ${formatedTime}: `)
-    a.attr('href',chat.url)
-    li.append(a)
-    jQuery('#messages').append(li)
+    // li.text(`${chat.from}  ${formatedTime}: `)
+    // a.attr('href',chat.url)
+    // li.append(a)
+    var html = Mustache.render(template,{
+      from:chat.from,
+      url:chat.url,
+      createdAt:formatedTime
+    })
+    jQuery('#messages').append(html)
 
 })
 
