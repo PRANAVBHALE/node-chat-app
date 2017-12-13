@@ -118,7 +118,7 @@ jQuery('#message-form').on('submit',function(e){
   e.preventDefault()
 
   socket.emit('createChat',{
-    from:'User',
+    //from:'User',
     text:messsageTextBox.val()
   },function(){
     messsageTextBox.val('')

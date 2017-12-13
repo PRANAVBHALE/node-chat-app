@@ -76,8 +76,14 @@ io.on('connection',(socket)=>{
 
 
   socket.on('createChat',(chat,callback) =>{
-    console.log('createChat',chat);
-    io.emit('newChat',generateMessage(chat.from,chat.text))
+//    console.log('createChat',chat);
+
+    var user = users.getUser(socket.id)
+
+    if(user && isRealString(chat.text)){
+      io.to(user.room).emit('newChat',generateMessage(user.name,chat.text))
+
+    }
     callback()
     // socket.broadcast.emit('newChat',{
     //   from:chat.from,
@@ -89,7 +95,11 @@ io.on('connection',(socket)=>{
 
   socket.on('createLocationMessage',(coords)=>{
   //  debugger
-    io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude , coords.longitude))
+
+      var user = users.getUser(socket.id)
+      if(user){
+        io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name,coords.latitude , coords.longitude))
+      }
   })
 
   socket.on('disconnect',()=>{
